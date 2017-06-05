@@ -1,0 +1,3 @@
+Se elimina código utlizado para debug.
+Se agregan comentarios
+Se cambia la forma en la que estaba haciendose el método gráfico del controlador GrahsController.

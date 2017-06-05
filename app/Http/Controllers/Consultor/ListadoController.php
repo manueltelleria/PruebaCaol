@@ -34,19 +34,22 @@ class ListadoController extends Controller {
 	 */
 	public function __construct()
 	{
-		//$this->middleware('auth');
+		//$this->middleware('auth');   //Se comenta ya que no se esta trabjando con login
 	}
 
-	public function pp()	{
+	public function entrada()	{
         
         $consultores = $this->getconsultores();
-		$anhos = array('2003','2004','2005','2006','2007');
 
 		return	view('consultor.entrada',	array('consultores'	=> $consultores,
 		                                          'meses'       => $this->meses,
-												  'anhos'       => $anhos));
+												  'anhos'       => $this->anhos));
 	}
 
+    /*
+    * relatorio función donde muestra la tabla de ganancias por consultor en un perido de tiempo.
+    * se utiliza el ORM eloquent para la busqueda de información en la base de datos
+    */
 	public function relatorio( Request $request)  {
 
         $consultores = explode(',', $request->input('lista_analista'));
@@ -98,112 +101,6 @@ class ListadoController extends Controller {
         $data['meses'] = $this->meses;
         $data['anhos'] = $this->anhos;
 
-        //$data['parametros']=$this->input->post();
-       // $data['dump']=$this->input->post();
-
         return view('consultor.relatorio')->with($data);
     }
-
-
-
-     public function pizza() {
-        
-        $consultores_in= explode(',', $this->input->post('contultores_sel'));
-        $f1=$this->input->post('anho_desde').'-'.$this->input->post('mes_desde');
-        $f2=$this->input->post('anho_hasta').'-'.$this->input->post('mes_hasta');
-        $titulo = "desde ".$meses[$this->input->post('mes_desde')-1]. " de ". $this->input->post('anho_desde'). " a ". $meses[$this->input->post('mes_hasta')-1]. " de ". $this->input->post('anho_hasta');
-
-        $desempenho=null;
-        $ganancia=[];
-        foreach ($consultores_in as  $consultor) {
-            $desempenho = $this->desempenho->getDesempenhoConsultor($consultor, $f1, $f2 );
-            $total=null;
-            $total['receita']=0;
-
-            if ($desempenho){
-                foreach ($desempenho->result() as $value) {
-                    $total['receita']= $total['receita']+ $value->receita;
-                }
-                array_push($ganancia, array($consultor, $total['receita']));
-            }
-        }
-
-        $this->load->view('/commons/head');
-        $this->load->view('/commons/nav');
-        $this->load->view('/commons/header');
-
-        $consultores = $this->usuario->getConsultores();
-        $data['consultores'] = $consultores;
-        $data['pizza'] = $ganancia;
-        $data['titulo'] = $titulo;
-        $data['meses']=$meses;
-        $data['parametros']=$this->input->post();
-        $data['dump']=$this->input->post();
-        $this->load->view('/comercial/performance', $data);
-
-        $this->load->view('/commons/footer');
-        $this->load->view('/commons/scripts');
-        $this->load->view('/comercial/pizza');
-        $this->load->view('/commons/close');
-
-    }
-
-    public function grafico()
-    {
-        if(!$this->session->userdata('log_in')){
-            header("Location: ".base_url()."logout");
-        }
-        $meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' );
-        $consultores_in= explode(',', $this->input->post('contultores_sel'));
-        $f1=$this->input->post('anho_desde').'-'.$this->input->post('mes_desde');
-        $f2=$this->input->post('anho_hasta').'-'.$this->input->post('mes_hasta');
-        $titulo = "desde ".$meses[$this->input->post('mes_desde')-1]. " de ". $this->input->post('anho_desde'). " a ". $meses[$this->input->post('mes_hasta')-1]. " de ". $this->input->post('anho_hasta');
-        $desempenho=null;
-        $ganancia=null;
-        $periodos = null;
-        $costos = 0;
-        foreach ($consultores_in as  $consultor) {
-
-            $ganancia[$consultor] =[];
-
-            $desempenho = $this->desempenho->getDesempenhoConsultor($consultor, $f1, $f2 );
-            $costo = $this->desempenho->getCostofijoConsultor($consultor);
-            if ($costo){
-                $costos = $costos + $costo->salario;
-            }
-
-            if ($desempenho){
-                foreach ($desempenho->result() as $value) {
-                    $ganancia[$consultor][$meses[$value->mes-1].' de '. $value->anho] = $value->receita;
-                    $periodos[$meses[$value->mes-1].' de '. $value->anho]=1;
-                }
-            }
-        }
-
-        $costos = $costos / count($consultores_in);
-
-        $this->load->view('/commons/head');
-        $this->load->view('/commons/nav');
-        $this->load->view('/commons/header');
-
-        $consultores = $this->usuario->getConsultores();
-        $data['consultores'] = $consultores;
-        $data['grafico'] = $ganancia;
-        $data['titulo'] = $titulo;
-        $data['periodos']=$periodos;
-        $data['costos']=$costos;
-        $data['meses']=$meses;
-        $data['parametros']=$this->input->post();
-        $data['dump']=$this->input->post();
-        $this->load->view('/comercial/performance', $data);
-
-        $this->load->view('/commons/footer');
-        $this->load->view('/commons/scripts');
-        $this->load->view('/comercial/grafico');
-        $this->load->view('/commons/close');
-
-    }
-
-
-    
 }

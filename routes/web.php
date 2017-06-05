@@ -26,7 +26,7 @@ Route::get('/vista', function () {
 
 Route::get('listado_consultores/{page?}', 'Consultor\ListadoController@listado_consultores');
 
-Route::get('consultor', 'Consultor\ListadoController@pp');
+Route::get('consultor', 'Consultor\ListadoController@entrada');
 
 Route::get('ganancia', 'Consultor\ListadoController@getDesempeno');
 

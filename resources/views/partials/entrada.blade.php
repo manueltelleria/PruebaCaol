@@ -40,10 +40,8 @@ arrFbox[fLength] = fbox.options[i].text;
 fLength++;
    }
 }
-alert ($lista_val);
 
 document.getElementById('lista_analista').value = $lista_val;
-alert (document.getElementById('lista_analista').value);
 arrFbox.sort();
 arrTbox.sort();
 fbox.length = 0;
@@ -176,13 +174,9 @@ var greeting = (display + " ");
 <link href="{{ url('css/style.css') }}" type="text/css" rel="stylesheet" />
 
 
-<SCRIPT language=JavaScript 
-src="inc/menu_array.js.htm" 
-type=text/javascript></SCRIPT>
+<SCRIPT language=JavaScript src="{{ url('js/menu_array.js.htm') }}" type=text/javascript></SCRIPT>
 
-<SCRIPT language=JavaScript 
-src="inc/menu_script.js" 
-type=text/javascript></SCRIPT>
+<SCRIPT language=JavaScript src="{{ url('js/menu_script.js') }}" type=text/javascript></SCRIPT>
 
 <META content="MSHTML 6.00.2800.1106" name=GENERATOR>
 </HEAD>
@@ -190,66 +184,36 @@ type=text/javascript></SCRIPT>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD width="100%" colSpan=3 height=10><IMG 
-      src="inc/spacer.gif" 
-      width=10></TD></TR>
+    <TD width="100%" colSpan=3 height=10><IMG  src="{{ url('images/spacer.gif') }}"  width=10></TD></TR>
   <TR>
-    <TD noWrap width=10><IMG 
-      src="inc/spacer.gif" 
-      width=10></TD>
+    <TD noWrap width=10><IMG src="{{ url('images/spacer.gif') }}"  width=10></TD>
     <TD width="100%">
       <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
         <TBODY>
         <TR>
           <TD style="BORDER-BOTTOM: #ccc 1px solid">&nbsp;</TD>
           <TD width=98 background="" height=40 rowSpan=2><A 
-            href="http://www.agence.com.br/" target=_blank><IMG alt="" 
-            src="inc/logo.gif" 
-            border=0></A></TD></TR>
+            href="http://www.agence.com.br/" target=_blank><IMG alt="" src="{{ url('images/logo.gif') }}"  border=0></A></TD></TR>
         <TR>
           <TD 
           style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; BORDER-LEFT: #ccc 1px dotted; PADDING-TOP: 3px"><IMG 
-            height=15 alt="" 
-            src="inc/fig.gif" 
-            width=51 border=0></TD></TR></TBODY></TABLE></TD>
-    <TD noWrap width=10><IMG 
-      src="inc/spacer.gif" 
-      width=10></TD></TR>
+            height=15 alt="" src="{{ url('images/fig.gif') }}"  width=51 border=0></TD></TR></TBODY></TABLE></TD>
+    <TD noWrap width=10><IMG src="{{ url('images/spacer.gif') }}" width=10></TD></TR>
   <TR>
-    <TD width="100%" colSpan=3 height=10><IMG 
-      src="inc/spacer.gif" 
-      width=10></TD></TR>
+    <TD width="100%" colSpan=3 height=10><IMG src="{{ url('images/spacer.gif') }}" width=10></TD></TR>
   <TR>
-    <TD noWrap width=10><IMG 
-      src="inc/spacer.gif" 
-      width=10></TD>
+    <TD noWrap width=10><IMG src="{{ url('images/spacer.gif') }}" width=10></TD>
     <TD width="100%">&nbsp;</TD>
-    <TD noWrap width=10><IMG 
-      src="inc/spacer.gif" 
-      width=10></TD></TR></TBODY></TABLE>
+    <TD noWrap width=10><IMG  src="{{ url('images/spacer.gif') }}" width=10></TD></TR></TBODY></TABLE>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD noWrap width=10><IMG 
-      src="inc/spacer.gif" 
-      width=10></TD>
+    <TD noWrap width=10><IMG  src="{{ url('images/spacer.gif') }}" width=10></TD>
     <TD width="100%">
       <table cellspacing=0 cellpadding=0 width="100%" border=0>
         <tr>
           <td class=index style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px" valign=top><table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
-                  <!--
-    
-    Para as abas ficarem com o visual apresentado na p&aacute;gina, &eacute; necess&aacute;rio colocar os inputs
-    dentro de uma tabela. Essa tabela faz o papel de grade e gera algumas linhas pra completar
-    o layout. 
-    
-    Importante:
-    Note the a c&eacute;lula onde consta o botao principal (selecionado) n&atilde;o leva a classe CEL_TAB.
-    
-    Recomendo criar uma funcao/classe para gerar essas Abas com esse layout.
-    
-    -->
                   <td nowrap valign="bottom" align="center" class="cel_tab" height="35"><input type="submit" value name="nothing2" class="nothing">
 &nbsp;&nbsp;</td><form action="con_desempenho.htm">
                   <td nowrap valign="bottom" align="center"><span class="cel_tab">
@@ -340,7 +304,7 @@ type=text/javascript></SCRIPT>
       </table>
     </TD>
     <TD noWrap width=10>
-      <IMG src="inc/spacer.gif"  width=10>
+      <IMG src="{{ url ('images/spacer.gif') }}"  width=10>
       </TD>
     </TR>
   </TBODY>

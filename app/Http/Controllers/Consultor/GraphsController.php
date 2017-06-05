@@ -11,18 +11,21 @@ use	Illuminate\Http\Request;
 use App\TraitConsultores;
 
 
-
+/*
+* Controlador que muestra los gráficos 
+*/
 class GraphsController extends Controller {
 
-  use TraitConsultores;
+    //Se utilizan Traits para la reutilización de código
 
-
+    use TraitConsultores;
     private $meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' );
     private	$anhos = array('2003','2004','2005','2006','2007');
 
-
-
-public function  pizza(Request $request) {
+    /* Pizza
+    * muestra el gráfico de torta, utilizando la librería de Laravel Lavacharts  o Lava
+    */
+    public function  pizza(Request $request) {
 
         $consultores = explode(',', $request->input('lista_analista'));
         $mes_in = $request->input('mes_in') + 1;
@@ -79,6 +82,9 @@ public function  pizza(Request $request) {
        return view('consultor.pizza')->with($data);
     }
 
+   /* grafico
+    * muestra el gráfico de barras, utilizando la librería HighCharts
+    */
     public function grafico(Request $request) {
         
         $consultores = explode(',', $request->input('lista_analista'));
@@ -117,30 +123,6 @@ public function  pizza(Request $request) {
 
         $costos = $costos / count($consultores); 
 
-        $finances = \Lava::DataTable();
-
-        $finances->addDateColumn('Year');  
-         foreach ($consultores_nom as $nom){
-          $finances->addNumberColumn($nom);  
-         }
-         $finances->addNumberColumn('Carlos')
-         ->addNumberColumn('Pepe')
-         ->addNumberColumn('Pepe_1')
-
-         ->setDateTimeFormat('Y')
-         ->addRow(['2004', 1000, 400, 200])
-         ->addRow(['2005', 1170, 460, 3000])
-         ->addRow(['2006', 660, 1120, 1000])
-         ->addRow(['2007', 1030, 54, 400]);
-             
-        \Lava::ColumnChart('Finances', $finances, [
-                                                   'title' => 'Company Performance',
-                                                   'titleTextStyle' => [
-                                                                         'color'    => '#eb6b2c',
-                                                                        'fontSize' => 14
-                                                                       ]
-                                                  ]);
-
         $consultores = $this->getConsultores();
         $data['consultores'] = $consultores;
         $data['grafico'] = $ganancia;
@@ -150,10 +132,15 @@ public function  pizza(Request $request) {
         $data['meses']=$this->meses; 
         $data['anhos'] = $this->anhos;                                     
 
-
-        return view('consultor.barra')->with($data);
-        //return view('consultor.barra');
-
+        $consultores = $this->getConsultores();
+        $data['consultores'] = $consultores;
+        $data['grafico'] = $ganancia;
+        $data['titulo'] = $titulo;
+        $data['periodos']=$periodos;
+        $data['costos']=$costos;
+        $data['meses']=$this->meses;
+        
+        return view('consultor.grafico')->with($data);
 
     }
 

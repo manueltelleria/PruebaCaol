@@ -15,10 +15,10 @@
           @foreach ($value as $value2) 
             <tr bgcolor=#fafafa>
                <{{$value2['fila']}}><div align="right">{{ $value2['periodo'] }}</div></{{$value2['fila']}}>
-               <{{$value2['fila']}}><div align="right">R$ {{  $value2['receita'] }}</div></{{$value2['fila']}}>
-               <{{$value2['fila']}}><div align="right">R$ -{{ $value2['costo'] }}</div></{{$value2['fila']}}>
-               <{{$value2['fila']}}><div align="right">R$ -{{ $value2['comissao'] }}</div></{{$value2['fila']}}>
-               <{{$value2['fila']}}><div align="right"><font color="{{$value2['color']}}">R$ {{ $value2['receita'] - $value2['comissao'] - $value2['costo'] }}</font></div></{{$value2['fila']}}>
+               <{{$value2['fila']}}><div align="right"><font color="{{$value2['color']}}">R$ {{ number_format($value2['receita']) }}</font></div></{{ $value2['fila']}}>
+               <{{$value2['fila']}}><div align="right"><font color="red">R$ -{{ number_format($value2['costo']) }}</font></div></{{$value2['fila']}}>
+               <{{$value2['fila']}}><div align="right"><font color="red">R$ -{{ number_format($value2['comissao']) }}</fornt></div></{{$value2['fila']}}>
+               <{{$value2['fila']}}><div align="right"><font color="black">R$ {{ number_format($value2['receita'] - $value2['comissao'] - $value2['costo']) }}</font></div></{{$value2['fila']}}>
              </tr>
          @endforeach
       </table>
